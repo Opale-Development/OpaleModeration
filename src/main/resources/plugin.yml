@@ -1,0 +1,15 @@
+name: OpaleModeration
+version: '${project.version}'
+main: fr.opaleuhc.opalemoderation.OpaleModeration
+website: https://opaleuhc.fr
+description: OpaleModeration plugin
+authors:
+  - OpaleUHC
+  - Farmeurimmo
+api-version: 1.8
+commands:
+  om:
+    permission: opaleuhc.om
+    aliases:
+      - omb
+      - opalemoderation
