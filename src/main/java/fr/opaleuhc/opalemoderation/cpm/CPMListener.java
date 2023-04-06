@@ -4,7 +4,6 @@ import com.google.common.io.ByteArrayDataInput;
 import com.google.common.io.ByteArrayDataOutput;
 import com.google.common.io.ByteStreams;
 import fr.opaleuhc.opalemoderation.OpaleModeration;
-import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 public class CPMListener implements org.bukkit.plugin.messaging.PluginMessageListener {
