@@ -27,6 +27,9 @@ public class MuteInv extends FastInv {
             if (total_Passed == Mutes.values().length) break;
             Mutes mute = Mutes.values()[total_Passed];
             setItem(i, mute.getItem(), e -> new ConfirmationInv(mute.getSanction(), target, mute.getBonusSanction()).open((Player) e.getWhoClicked()));
+            total_Passed++;
         }
+
+        setItem(26, ItemUtils.getBack(), e -> new MainInv(target).open((Player) e.getWhoClicked()));
     }
 }

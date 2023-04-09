@@ -28,6 +28,9 @@ public class BanInv extends FastInv {
             if (total_Passed == Mutes.values().length) break;
             Bans ban = Bans.values()[total_Passed];
             setItem(i, ban.getItem(), e -> new ConfirmationInv(ban.getSanction(), target, ban.getBonusSanction()).open((Player) e.getWhoClicked()));
+            total_Passed++;
         }
+
+        setItem(26, ItemUtils.getBack(), e -> new MainInv(target).open((Player) e.getWhoClicked()));
     }
 }

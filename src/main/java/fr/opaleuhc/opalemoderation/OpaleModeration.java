@@ -1,5 +1,6 @@
 package fr.opaleuhc.opalemoderation;
 
+import fr.mrmicky.fastinv.FastInvManager;
 import fr.opaleuhc.opalemoderation.cmd.OpaleModerationCmd;
 import fr.opaleuhc.opalemoderation.cpm.CPMListener;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -13,6 +14,9 @@ public final class OpaleModeration extends JavaPlugin {
         instance = this;
 
         getLogger().info("OpaleModeration is starting...");
+
+        getLogger().info("Registering FASTINV...");
+        FastInvManager.register(this);
 
         getServer().getMessenger().registerIncomingPluginChannel(instance, CPMListener.channel, new CPMListener());
         getServer().getMessenger().registerOutgoingPluginChannel(instance, CPMListener.channel);

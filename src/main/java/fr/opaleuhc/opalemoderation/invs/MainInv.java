@@ -32,6 +32,21 @@ public class MainInv extends FastInv {
         ItemMeta muteMeta = mute.getItemMeta();
         muteMeta.setDisplayName("§cMutes");
         mute.setItemMeta(muteMeta);
-        setItem(15, mute, e -> new MuteInv(target).open((Player) e.getWhoClicked()));
+        setItem(14, mute, e -> new MuteInv(target).open((Player) e.getWhoClicked()));
     }
+
+    /*@Override
+    public void onOpen(InventoryOpenEvent e) {
+
+    }
+
+    @Override
+    public void onClose(InventoryCloseEvent e) {
+
+    }
+
+    @Override
+    public void onClick(InventoryClickEvent e) {
+        // do something
+    }*/
 }
