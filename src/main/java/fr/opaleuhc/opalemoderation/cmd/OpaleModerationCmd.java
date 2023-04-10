@@ -32,8 +32,18 @@ public class OpaleModerationCmd implements CommandExecutor, TabCompleter {
 
     @Override
     public List<String> onTabComplete(CommandSender sender, Command cmd, String label, String[] args) {
+        if (!sender.hasPermission("opaleuhc.om")) {
+            return null;
+        }
+        if (!(sender instanceof Player p)) {
+            return null;
+        }
         if (args.length == 1) {
             List<String> list = new ArrayList<>();
+            for (Player target : sender.getServer().getOnlinePlayers()) {
+                if (target.getName().equalsIgnoreCase(p.getName())) continue;
+                list.add(target.getName());
+            }
             return list;
         }
         return null;
