@@ -1,7 +1,10 @@
 package fr.opaleuhc.opalemoderation.ore;
 
 import fr.opaleuhc.opalemoderation.OpaleModeration;
-import jdk.jshell.spi.ExecutionControl;
+import net.md_5.bungee.api.chat.BaseComponent;
+import net.md_5.bungee.api.chat.ClickEvent;
+import net.md_5.bungee.api.chat.HoverEvent;
+import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -82,17 +85,34 @@ public class OreManager {
             for (Map.Entry<Player, Long> entry1 : entry.getValue().entrySet()) {
                 ArrayList<Block> blocks = getBlocksNearby(entry1.getKey().getLocation(), entry.getKey(), false);
                 if (blocks.size() == 0) {
-                    sendToStaffs("§7[§eOre§7] §e" + entry1.getKey().getName() + " §7a miné §e" + entry1.getValue() + " §7" + getMaterial(entry.getKey()));
+                    BaseComponent base = new TextComponent("§7[§eOre§7] §e" + entry1.getKey().getName() + " §7a miné §e" + entry1.getValue() + " §7" + getMaterial(entry.getKey()));
+                    base.addExtra(getTpComponent(entry1.getKey().getLocation()));
+                    sendToStaffs(base);
                     alerts.get(entry.getKey()).remove(entry1.getKey());
                 }
             }
         }
     }
 
-    public void sendToStaffs(String message) {
+    public BaseComponent getTpComponent(Location loc) {
+        BaseComponent baseComponent = new TextComponent(" §7[§6§lTP§7]");
+        baseComponent.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/tp " + loc.getBlockX() + " " + loc.getBlockY() + " " + loc.getBlockZ()));
+        baseComponent.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new BaseComponent[]{new TextComponent("§7Cliquez pour vous téléporter en §e" + loc.getBlockX()
+                + " " + loc.getBlockY() + " " + loc.getBlockZ())}));
+        return baseComponent;
+    }
+
+    public BaseComponent getTpToComponent(Player p) {
+        BaseComponent baseComponent = new TextComponent(" §7[§6§lTP§7]");
+        baseComponent.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/tp " + p.getName()));
+        baseComponent.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new BaseComponent[]{new TextComponent("§7Cliquez pour vous téléporter à §e" + p.getName())}));
+        return baseComponent;
+    }
+
+    public void sendToStaffs(BaseComponent message) {
         Bukkit.getOnlinePlayers().forEach(player -> {
             if (player.hasPermission("opaleuhc.ore")) {
-                player.sendMessage(message);
+                player.spigot().sendMessage(message);
             }
         });
     }
@@ -119,9 +139,8 @@ public class OreManager {
         }
     }
 
-    public String getTopOre(OresControlled ore) {
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("§7Top 15 de §e").append(ore.getName()).append("§7 :\n");
+    public BaseComponent getTopOre(OresControlled ore) {
+        BaseComponent baseComponent = new TextComponent("§7[§eTop §e" + ore.getName() + "§7]\n");
         ArrayList<OreTopper> oreToppers = new ArrayList<>();
         this.oreToppers.forEach(oreTopper -> {
             if (oreTopper.getOres().containsKey(ore.getMaterial())) {
@@ -139,10 +158,13 @@ public class OreManager {
         int i = 1;
         for (OreTopper oreTopper : oreToppers) {
             if (i > 15) break;
-            stringBuilder.append("§e").append(i).append(" - §7").append(oreTopper.getName()).append(" §e").append(oreTopper.getPercent(ore.getMaterial())).append("\n");
+            baseComponent.addExtra(new TextComponent("§e" + i + " - §7" + oreTopper.getName() + " §e" + oreTopper.getPercent(ore.getMaterial())));
+            Player player = Bukkit.getPlayer(oreTopper.getUuid());
+            if (player != null) baseComponent.addExtra(getTpToComponent(player));
+            if (i < oreToppers.size()) baseComponent.addExtra("\n");
             i++;
         }
-        return stringBuilder.toString();
+        return baseComponent;
     }
 
     public void addOreTopper(OreTopper oreTopper) {

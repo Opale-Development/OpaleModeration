@@ -31,7 +31,11 @@ public class OreCmd implements CommandExecutor, TabCompleter {
             } else if (args[0].equalsIgnoreCase("top") || args[0].equalsIgnoreCase("t")) {
                 try {
                     OresControlled oreType = OresControlled.valueOf(args[1].toUpperCase());
-                    sender.sendMessage(OreManager.instance.getTopOre(oreType));
+                    if (sender instanceof Player) {
+                        ((Player) sender).spigot().sendMessage(OreManager.instance.getTopOre(oreType));
+                        return false;
+                    }
+                    sender.sendMessage(OreManager.instance.getTopOre(oreType).toLegacyText());
                 } catch (Exception e) {
                     sender.sendMessage("§cCette ore n'existe pas !");
                     return false;
