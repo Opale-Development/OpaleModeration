@@ -13,3 +13,7 @@ commands:
     aliases:
       - omb
       - opalemoderation
+  ore:
+    permission: opaleuhc.ore
+    aliases:
+      - opaleore

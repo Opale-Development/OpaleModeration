@@ -9,6 +9,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import java.util.Arrays;
+
 public class ConfirmationInv extends FastInv {
 
     public ConfirmationInv(Sanction sanction, String target, Sanction bonusSanction) {
@@ -33,16 +35,19 @@ public class ConfirmationInv extends FastInv {
 
         ItemStack info = new ItemStack(Material.PAPER);
         ItemMeta infoMeta = info.getItemMeta();
-        infoMeta.setDisplayName("§cVous êtes sur le point de " + sanction.getType().getName() + " " + target + " pour " + sanction.getReason() +
-                " pendant " + DateUtils.getDurationIn(sanction.getDuration()));
+        infoMeta.setDisplayName("§cVous êtes sur le point de §l" + sanction.getType().getName() + "§c : §6" + target);
+        infoMeta.setLore(Arrays.asList("§ePour : §6" + sanction.getReason(),
+                "§ePendant : §6" + DateUtils.getDurationIn(sanction.getDuration())));
         info.setItemMeta(infoMeta);
         setItem(13, info);
 
         if (bonusSanction != null) {
             ItemStack bonus = new ItemStack(Material.PAPER);
             ItemMeta bonusMeta = bonus.getItemMeta();
-            bonusMeta.setDisplayName("§cVous êtes sur le point de " + bonusSanction.getType().getName() + " " + target + " pour " + bonusSanction.getReason() +
-                    " pendant " + DateUtils.getDurationIn(bonusSanction.getDuration()));
+            bonusMeta.setDisplayName("§cVous êtes sur le point de §l" + bonusSanction.getType().getName() + " §c: §6" + target);
+            bonusMeta.setLore(Arrays.asList("§ePour : §6" + bonusSanction.getReason(),
+                    "§ePendant : §6" + DateUtils.getDurationIn(bonusSanction.getDuration())));
+            bonus.setItemMeta(bonusMeta);
         }
 
         ItemStack confirm = new ItemStack(Material.EMERALD_BLOCK);
