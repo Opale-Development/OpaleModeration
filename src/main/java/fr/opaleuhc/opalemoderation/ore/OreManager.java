@@ -1,6 +1,7 @@
 package fr.opaleuhc.opalemoderation.ore;
 
 import fr.opaleuhc.opalemoderation.OpaleModeration;
+import jdk.jshell.spi.ExecutionControl;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -81,11 +82,19 @@ public class OreManager {
             for (Map.Entry<Player, Long> entry1 : entry.getValue().entrySet()) {
                 ArrayList<Block> blocks = getBlocksNearby(entry1.getKey().getLocation(), entry.getKey(), false);
                 if (blocks.size() == 0) {
-                    Bukkit.broadcastMessage("§7[§eOre§7] §e" + entry1.getKey().getName() + " §7a miné §e" + entry1.getValue() + " §7" + getMaterial(entry.getKey()));
+                    sendToStaffs("§7[§eOre§7] §e" + entry1.getKey().getName() + " §7a miné §e" + entry1.getValue() + " §7" + getMaterial(entry.getKey()));
                     alerts.get(entry.getKey()).remove(entry1.getKey());
                 }
             }
         }
+    }
+
+    public void sendToStaffs(String message) {
+        Bukkit.getOnlinePlayers().forEach(player -> {
+            if (player.hasPermission("opaleuhc.ore")) {
+                player.sendMessage(message);
+            }
+        });
     }
 
     public String getMaterial(Material material) {
