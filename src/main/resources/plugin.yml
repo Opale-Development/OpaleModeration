@@ -17,3 +17,7 @@ commands:
     permission: opaleuhc.ore
     aliases:
       - opaleore
+  cps:
+    permission: opaleuhc.cps
+    aliases:
+      - clickpersecond
