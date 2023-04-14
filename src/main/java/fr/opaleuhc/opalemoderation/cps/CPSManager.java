@@ -2,7 +2,6 @@ package fr.opaleuhc.opalemoderation.cps;
 
 import fr.opaleuhc.opalemoderation.OpaleModeration;
 import org.bukkit.Bukkit;
-import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -15,8 +14,7 @@ public class CPSManager {
     public static final int CPS_LIMIT = 16;
     public static CPSManager instance;
     public HashMap<UUID, ArrayList<Long>> cps = new HashMap<>();
-    public HashMap<UUID, Long> lastCPSAlert = new HashMap<>();
-    public HashMap<UUID, Integer> cpsAlertInt = new HashMap<>();
+
     public CPSManager() {
         instance = this;
 
@@ -32,34 +30,6 @@ public class CPSManager {
             cps.put(uuid, new ArrayList<>(List.of(System.currentTimeMillis())));
         }
         cps.get(uuid).add(System.currentTimeMillis());
-        checkForToMuchCPS(uuid);
-    }
-
-    public void checkForToMuchCPS(UUID uuid) {
-        if (getCPS(uuid) >= CPS_LIMIT) {
-            if (lastCPSAlert.containsKey(uuid) && System.currentTimeMillis() - lastCPSAlert.get(uuid) < CPS_ALERT_DELAY) {
-                if (cpsAlertInt.containsKey(uuid)) {
-                    if (cpsAlertInt.get(uuid) < getCPS(uuid)) {
-                        cpsAlertInt.put(uuid, getCPS(uuid));
-                    }
-                } else {
-                    cpsAlertInt.put(uuid, getCPS(uuid));
-                }
-                return;
-            }
-            int cps = getCPS(uuid);
-            if (cpsAlertInt.containsKey(uuid)) {
-                if (cpsAlertInt.get(uuid) > cps) {
-                    cps = cpsAlertInt.get(uuid);
-                }
-            }
-            for (Player p : Bukkit.getOnlinePlayers()) {
-                if (p.hasPermission("opaleuhc.cps")) {
-                    p.sendMessage("CPS alert : " + Bukkit.getPlayer(uuid).getName() + " " + cps + " !");
-                    lastCPSAlert.put(uuid, System.currentTimeMillis());
-                }
-            }
-        }
     }
 
     public int getCPS(UUID uuid) {
