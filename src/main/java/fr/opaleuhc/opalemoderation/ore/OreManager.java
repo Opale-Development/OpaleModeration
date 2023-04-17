@@ -6,6 +6,7 @@ import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.HoverEvent;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
+import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -111,7 +112,7 @@ public class OreManager {
 
     public void sendToStaffs(BaseComponent message) {
         Bukkit.getOnlinePlayers().forEach(player -> {
-            if (player.hasPermission("opaleuhc.ore")) {
+            if (player.hasPermission("opaleuhc.ore") && (player.getGameMode() == GameMode.CREATIVE || player.getGameMode() == GameMode.SPECTATOR)) {
                 player.spigot().sendMessage(message);
             }
         });
