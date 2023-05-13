@@ -6,7 +6,7 @@ description: OpaleModeration plugin
 authors:
   - OpaleUHC
   - Farmeurimmo
-api-version: 1.8
+api-version: 1.19
 commands:
   om:
     permission: opaleuhc.om

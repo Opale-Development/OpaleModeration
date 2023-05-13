@@ -10,8 +10,7 @@ public enum OresControlled {
     DIAMANT(Material.DIAMOND_ORE, "Diamant", true),
     EMERAUDE(Material.EMERALD_ORE, "Emeraude", false),
     LAPIS(Material.LAPIS_ORE, "Lapis", false),
-    REDSTONE(Material.REDSTONE_ORE, "Redstone", false),
-    QUARTZ(Material.QUARTZ_ORE, "Quartz", false);
+    REDSTONE(Material.REDSTONE_ORE, "Redstone", false);
 
     private final Material material;
     private final String name;

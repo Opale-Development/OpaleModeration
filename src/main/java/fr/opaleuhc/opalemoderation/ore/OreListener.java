@@ -8,9 +8,6 @@ public class OreListener implements Listener {
 
     @EventHandler(ignoreCancelled = true)
     public void onBlockBreakEvent(BlockBreakEvent e) {
-        if (e.getBlock() == null) return;
-        if (e.getBlock().getType() == null) return;
-        if (e.getPlayer() == null) return;
         OreManager.instance.blockBreakEvent(e.getPlayer(), e.getBlock());
     }
 }

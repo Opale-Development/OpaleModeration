@@ -1,9 +1,9 @@
 package fr.opaleuhc.opalemoderation.invs;
 
 import fr.mrmicky.fastinv.FastInv;
-import fr.opaleuhc.opalemoderation.ItemUtils;
 import fr.opaleuhc.opalemoderation.enums.Bans;
 import fr.opaleuhc.opalemoderation.enums.Mutes;
+import fr.opaleuhc.opalemoderation.utils.ItemUtils;
 import org.bukkit.entity.Player;
 
 public class BanInv extends FastInv {

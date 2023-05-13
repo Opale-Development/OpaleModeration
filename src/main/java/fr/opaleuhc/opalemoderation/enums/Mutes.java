@@ -16,7 +16,7 @@ public enum Mutes {
     PUBLICITE(new Sanction("Publicité", 1000 * 60 * 60 * 2, Sanction.Type.MUTE), new ItemBuilder(Material.COAL_BLOCK).name("§cPublicité").build(), null),
     SPAM(new Sanction("Spam", 1000 * 60 * 60 * 2, Sanction.Type.MUTE), new ItemBuilder(Material.PAPER).name("§cSpam").build(), null),
     PROVOCATION(new Sanction("Provocation", 1000 * 60 * 60 * 2, Sanction.Type.MUTE), new ItemBuilder(Material.BLAZE_ROD).name("§cProvocation").build(), null),
-    INSULTES(new Sanction("Insultes", 1000 * 60 * 60 * 24, Sanction.Type.MUTE), new ItemBuilder(Material.REDSTONE_COMPARATOR).name("§cInsultes (violence, haine)").build(), null),
+    INSULTES(new Sanction("Insultes", 1000 * 60 * 60 * 24, Sanction.Type.MUTE), new ItemBuilder(Material.COMPARATOR).name("§cInsultes (violence, haine)").build(), null),
     INSULTES_2(new Sanction("Insultes 2ème degré", 1000 * 60 * 60 * 24 * 7, Sanction.Type.MUTE), new ItemBuilder(Material.REDSTONE_BLOCK).
             name("§cInsultes 2ème degré (racisme, diffamation, menaces)").build(), new Sanction("Insultes 2ème degré", 1000 * 60 * 60 * 24 * 3, Sanction.Type.BAN));
 
